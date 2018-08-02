@@ -19,6 +19,14 @@ app.get('/', function(request, response) {
   response.send('Hello there!')
 })
 
+app.post('/sms', function(req, res) {
+	if(req) {
+		console.log("Success, here is the data: ", req)
+	} else {
+		console.log("error error error")
+	}
+})
+
 app.listen(app.get('port'), function(err) {
   if (err) {
     return console.log('something bad happened', err)
