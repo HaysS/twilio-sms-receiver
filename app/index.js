@@ -21,7 +21,7 @@ app.get('/', function(request, response) {
 
 app.post('/sms', function(req, res) {
 	if(req) {
-		console.log("Success, here is the data: ", req)
+		console.log("Success, here is the data: ", req.body)
 	} else {
 		console.log("error error error")
 	}
