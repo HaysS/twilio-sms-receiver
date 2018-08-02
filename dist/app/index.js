@@ -1,6 +1,10 @@
 require("babel-core/register");
 require("babel-polyfill");
 
+const twilioSid = process.env.TWILIO_SID;
+const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioClient = require('twilio')(twilioSid, twilioAuthToken);
+
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
@@ -15,21 +19,29 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 app.get('/', function (request, response) {
-  response.send('Hello there!');
+		response.send('Hello there!');
+});
+
+app.get('/send-sms', function (req, res) {
+		client.messages.create({
+				body: "This is Hays. Please reply to this number to verify that this text was received. It is coded in a computer so I can\'t tell if it is received",
+				from: '+15124022658',
+				to: '+15127857177'
+		}).then(message => console.log(message.sid)).done();
 });
 
 app.post('/sms', function (req, res) {
-  if (req) {
-    console.log("Success, here is the data: ", req.body);
-  } else {
-    console.log("error error error");
-  }
+		if (req) {
+				console.log("Success, here is the data: ", req.body);
+		} else {
+				console.log("error error error");
+		}
 });
 
 app.listen(app.get('port'), function (err) {
-  if (err) {
-    return console.log('something bad happened', err);
-  }
+		if (err) {
+				return console.log('something bad happened', err);
+		}
 
-  console.log("Node app is running at localhost:" + app.get('port'));
+		console.log("Node app is running at localhost:" + app.get('port'));
 });
