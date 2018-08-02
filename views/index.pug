@@ -1,0 +1,27 @@
+html
+  head
+    style
+      include normalize.css
+    style
+      include skeleton.css
+  body
+    div(class='container')
+      div(class='spacer')
+      div(class='centered')
+        div(class='content')
+          h1 Ice Breakerr
+          h2(class='prompt') You can see a person's uploaded pictures right now by using this form. 
+          form(action="/charge", method="post")
+            input(type="hidden", name="userUid", value=userUid)
+            input(type="hidden", name="profileUid", value=profileUid)
+            article
+              label=paymentText
+            script(
+              src="//checkout.stripe.com/v2/checkout.js",
+              class="stripe-button",
+              data-key=keyPublishable,
+              data-locale="auto",
+              data-description="View Pictures",
+              data-amount="100")
+      div(class='spacer')
+          
