@@ -23,18 +23,22 @@ app.get('/', function (request, response) {
 });
 
 app.get('/send-sms', function (req, res) {
-		client.messages.create({
-				body: "This is Hays. Please reply to this number to verify that this text was received. It is coded in a computer so I can\'t tell if it is received",
+		twilioClient.messages.create({
+				body: "This is Hays. Please reply to this number to verify that this text was received. It is coded in a computer so I can\'t tell it works.",
 				from: '+15124022658',
 				to: '+15127857177'
 		}).then(message => console.log(message.sid)).done();
+
+		response.send('Sending SMS...');
 });
 
 app.post('/sms', function (req, res) {
 		if (req) {
 				console.log("Success, here is the data: ", req.body);
+				res.send('Success');
 		} else {
 				console.log("error error error");
+				res.send('Failure');
 		}
 });
 

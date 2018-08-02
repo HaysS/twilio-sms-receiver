@@ -26,13 +26,13 @@ app.get('/', function(request, response) {
 app.get('/send-sms', function(req, res) {
 	twilioClient.messages
 		.create({
-		 body: "This is Hays. Please reply to this number to verify that this text was received. It is coded in a computer so I can\'t tell if it is received",
+		 body: "This is Hays. Please reply to this number to verify that this text was received. It is coded in a computer so I can\'t tell it works.",
 		 from: '+15124022658',
 		 to: '+15127857177'
 		})
 		.then(message => console.log(message.sid))
 		.done();	
-		
+
   	response.send('Sending SMS...')
 })
 
