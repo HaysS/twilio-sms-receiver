@@ -19,8 +19,8 @@ app.use(express.static(__dirname + '/public'))
 
 app.use(bodyParser.json());
 
-app.get('/', function(request, response) {
-  response.send('Hello there!')
+app.get('/', function(req, res) {
+  res.send('Hello there!')
 })
 
 app.get('/send-sms', function(req, res) {
@@ -33,7 +33,7 @@ app.get('/send-sms', function(req, res) {
 		.then(message => console.log(message.sid))
 		.done();	
 
-  	response.send('Sending SMS...')
+  	res.send('Sending SMS...')
 })
 
 app.post('/sms', function(req, res) {
