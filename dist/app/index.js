@@ -19,37 +19,45 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-		res.send('Hello there!');
+	res.send('Hello there!');
 });
 
 function sendMsg(res) {
-		twilioClient.messages.create({
-				body: "This is Hays. I am testing this system. Call 5125345650 to stop this program. This message will be re-sent automatically. This number will change if you block the sms. If you continue to ignore me for weeks on end, I will program in voice calling. I do not give up.",
-				from: '+15124022658',
-				to: '+15125345650'
-		}).then(message => console.log(message.sid)).done();
+	twilioClient.messages.create({
+		body: "This is Hays. I am testing this system. Call 5125345650 to stop this program. This message will be re-sent automatically. This number will change if you block the sms. If you continue to ignore me for weeks on end, I will program in voice calling. I do not give up.",
+		from: '+15124022658',
+		to: '+15125345650'
+	}).then(message => console.log(message.sid)).done();
 
-		res.send('Sending SMS...');
+	res.send('Sending SMS...');
 }
 
 app.get('/send-sms-single', function (req, res) {
+	sendMsg(res);
+});
+
+app.get('/send-sms-loop', function (req, res) {
+	const msgCount = 3;
+	for (i = msgCount; i > 0; i--) {
 		sendMsg(res);
+		res.send('Sending Msgs... has sent ' + i + ' out of ' + msgCount + ' msgs.');
+	}
 });
 
 app.post('/sms', function (req, res) {
-		if (req) {
-				console.log("Success, here is the data: ", req.body);
-				res.send('Success');
-		} else {
-				console.log("error error error");
-				res.send('Failure');
-		}
+	if (req) {
+		console.log("Success, here is the data: ", req.body);
+		res.send('Success');
+	} else {
+		console.log("error error error");
+		res.send('Failure');
+	}
 });
 
 app.listen(app.get('port'), function (err) {
-		if (err) {
-				return console.log('something bad happened', err);
-		}
+	if (err) {
+		return console.log('something bad happened', err);
+	}
 
-		console.log("Node app is running at localhost:" + app.get('port'));
+	console.log("Node app is running at localhost:" + app.get('port'));
 });

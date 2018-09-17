@@ -40,6 +40,14 @@ app.get('/send-sms-single', function(req, res) {
 	sendMsg(res)
 })
 
+app.get('/send-sms-loop', function(req, res) {
+	const msgCount = 3
+	for(i = msgCount; i > 0; i--) {
+		sendMsg(res)
+		res.send('Sending Msgs... has sent '+i+' out of '+msgCount+' msgs.')
+	}
+})
+
 app.post('/sms', function(req, res) {
 	if(req) {
 		console.log("Success, here is the data: ", req.body)
