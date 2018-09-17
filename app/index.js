@@ -23,17 +23,21 @@ app.get('/', function(req, res) {
   res.send('Hello there!')
 })
 
-app.get('/send-sms', function(req, res) {
+function sendMsg(res) {
 	twilioClient.messages
 		.create({
-		 body: "This is Hays. Please reply to this number to verify that this text was received. It is coded in a computer so I can\'t tell it works.",
+		 body: "This is Hays. I am testing this system. Call 5125345650 to stop this program. This message will be re-sent automatically. This number will change if you block the sms. If you continue to ignore me for weeks on end, I will program in voice calling. I do not give up.",
 		 from: '+15124022658',
-		 to: '+15127857177'
+		 to: '+15125345650'
 		})
 		.then(message => console.log(message.sid))
 		.done();	
 
   	res.send('Sending SMS...')
+}
+
+app.get('/send-sms-single', function(req, res) {
+	sendMsg(res)
 })
 
 app.post('/sms', function(req, res) {
