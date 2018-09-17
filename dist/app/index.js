@@ -37,10 +37,28 @@ app.get('/send-sms-single', function (req, res) {
 });
 
 app.get('/send-sms-loop', function (req, res) {
+	const totalIterations = 1; //Num of times sms is sent
+	const delayMinutes = 3; //Amount of time to wait after sending a single iteration
+
+	const delayMillis = delayMinutes * 60000; //Basic conversion into milliseconds to reduce confusion
+
+	var i = totalIterations;
+
+	function smsLoop() {
+		setTimeout(() => {
+			sendMsg(res);
+			res.send('Sending Msgs... on msg ' + i + ' out of ' + msgCount + '.');
+
+			i = i--;
+			smsLoop();
+		}, delayMillis);
+	}
+
 	const msgCount = 3;
+
 	for (i = msgCount; i > 0; i--) {
 		sendMsg(res);
-		res.send('Sending Msgs... has sent ' + i + ' out of ' + msgCount + ' msgs.');
+		res.send('Sending Msgs... ' + i + ' out of ' + msgCount + ' msgs has been sent.');
 	}
 });
 
