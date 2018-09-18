@@ -38,7 +38,7 @@ function sendMsg(res) {
 var msgLoop = function smsLoop(res, n, delay) {
 	setTimeout(() => {
 		sendMsg(res)
-		res.send('Sending Msgs... on msg '+n+' out of '+msgCount+'.')
+		res.send('Sending Msgs... on msg '+n+'.')
 
 		if(n > 0) {
 			smsLoop(n-1)
