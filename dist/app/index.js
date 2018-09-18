@@ -5,6 +5,8 @@ const twilioSid = process.env.TWILIO_SID;
 const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(twilioSid, twilioAuthToken);
 
+const PHONE_NUMBER = '+15126479883';
+
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
@@ -26,7 +28,7 @@ function sendMsg() {
 	twilioClient.messages.create({
 		body: "This is Hays. I am testing this system. Call 5125345650 to stop this program. This message will be re-sent automatically. This number will change if you block the sms. If you continue to ignore me for weeks on end, I will program in voice calling. I do not give up.",
 		from: '+15124022658',
-		to: '+15125345650'
+		to: PHONE_NUMBER
 	}).then(message => console.log(message.sid)).done();
 }
 
@@ -43,7 +45,7 @@ var msgLoop = function smsLoop(n, delay) {
 
 app.get('/send-sms-single', function (req, res) {
 	sendMsg(res);
-	res.send('Sending SMS...');
+	res.send('Sending SMS to ' + PHONE_NUMBER + '...');
 });
 
 app.get('/send-sms-loop', function (req, res) {
@@ -54,7 +56,7 @@ app.get('/send-sms-loop', function (req, res) {
 
 	msgLoop(totalIterations - 1, delayMillis);
 
-	res.send('Sending Multiple SMS...');
+	res.send('Sending Multiple SMS to ' + PHONE_NUMBER + '...');
 });
 
 app.post('/sms', function (req, res) {
