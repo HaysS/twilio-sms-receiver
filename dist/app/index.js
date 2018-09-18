@@ -28,12 +28,22 @@ function sendMsg(res) {
 		from: '+15124022658',
 		to: '+15125345650'
 	}).then(message => console.log(message.sid)).done();
-
-	res.send('Sending SMS...');
 }
+
+var msgLoop = function smsLoop(n, delay) {
+	setTimeout(() => {
+		sendMsg(res);
+		res.send('Sending Msgs... on msg ' + n + ' out of ' + msgCount + '.');
+
+		if (n > 0) {
+			smsLoop(n - 1);
+		}
+	}, delay);
+};
 
 app.get('/send-sms-single', function (req, res) {
 	sendMsg(res);
+	res.send('Sending SMS...');
 });
 
 app.get('/send-sms-loop', function (req, res) {
@@ -42,24 +52,7 @@ app.get('/send-sms-loop', function (req, res) {
 
 	const delayMillis = delayMinutes * 60000; //Basic conversion into milliseconds to reduce confusion
 
-	var i = totalIterations;
-
-	function smsLoop() {
-		setTimeout(() => {
-			sendMsg(res);
-			res.send('Sending Msgs... on msg ' + i + ' out of ' + msgCount + '.');
-
-			i = i--;
-			smsLoop();
-		}, delayMillis);
-	}
-
-	const msgCount = 3;
-
-	for (i = msgCount; i > 0; i--) {
-		sendMsg(res);
-		res.send('Sending Msgs... ' + i + ' out of ' + msgCount + ' msgs has been sent.');
-	}
+	msgLoop(totalIterations, 1000);
 });
 
 app.post('/sms', function (req, res) {
