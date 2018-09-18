@@ -52,7 +52,9 @@ app.get('/send-sms-loop', function (req, res) {
 
 	const delayMillis = delayMinutes * 60000; //Basic conversion into milliseconds to reduce confusion
 
-	msgLoop(res, totalIterations, 1000);
+	msgLoop(totalIterations, 1000);
+
+	res.send('Sending Multiple SMS...');
 });
 
 app.post('/sms', function (req, res) {
