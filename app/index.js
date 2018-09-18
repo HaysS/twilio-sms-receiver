@@ -23,7 +23,7 @@ app.get('/', function(req, res) {
   res.send('Hello there!')
 })
 
-function sendMsg(res) {
+function sendMsg() {
 	twilioClient.messages
 		.create({
 		 body: "This is Hays. I am testing this system. Call 5125345650 to stop this program. This message will be re-sent automatically. This number will change if you block the sms. If you continue to ignore me for weeks on end, I will program in voice calling. I do not give up.",
@@ -35,13 +35,13 @@ function sendMsg(res) {
 }
 
 
-var msgLoop = function smsLoop(res, n, delay) {
+var msgLoop = function smsLoop(n, delay) {
 	setTimeout(() => {
-		sendMsg(res)
-		res.send('Sending Msgs... on msg '+n+'.')
+		sendMsg()
+		console.log('Sending Msgs... on msg '+n+'.')
 
 		if(n > 0) {
-			smsLoop(res, n-1, delay)
+			smsLoop(n-1, delay)
 		}
 	}, delay)
 }
