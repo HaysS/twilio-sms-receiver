@@ -41,7 +41,7 @@ var msgLoop = function smsLoop(res, n, delay) {
 		res.send('Sending Msgs... on msg '+n+'.')
 
 		if(n > 0) {
-			smsLoop(n-1)
+			smsLoop(res, n-1, delay)
 		}
 	}, delay)
 }
