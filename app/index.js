@@ -28,7 +28,7 @@ function sendMsg() {
 		.create({
 		 body: "This is Hays. I am testing this system. Call 5125345650 to stop this program. This message will be re-sent automatically. This number will change if you block the sms. If you continue to ignore me for weeks on end, I will program in voice calling. I do not give up.",
 		 from: '+15124022658',
-		 to: '+15125345650'
+		 to: '+15126479883'
 		})
 		.then(message => console.log(message.sid))
 		.done();	
