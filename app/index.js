@@ -52,12 +52,12 @@ app.get('/send-sms-single', function(req, res) {
 })
 
 app.get('/send-sms-loop', function(req, res) {
-	const totalIterations = 1 //Num of times sms is sent
-	const delayMinutes = 3	//Amount of time to wait after sending a single iteration
+	const totalIterations = 3 //Num of times sms is sent
+	const delayMinutes = 1	//Amount of time to wait after sending a single iteration
 
 	const delayMillis = delayMinutes * 60000 //Basic conversion into milliseconds to reduce confusion
 
-	msgLoop(totalIterations, 1000)
+	msgLoop(totalIterations-1, delayMillis)
 
   	res.send('Sending Multiple SMS...')
 
